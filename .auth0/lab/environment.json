@@ -1,6 +1,6 @@
 {
-  "name": "Lab Node Template",
-  "version":"0.0.1",
+  "name": "Lab Node Working with SPA Applications",
+  "version":"1.0.0",
   "resources": "resources.yml",
   "postConfigureTour": ".auth0/lab/guides/main.tour",
   "clients": [
@@ -15,5 +15,15 @@
       }
     }
   ],
-  "resourceServers": []
+  "resourceServers": [
+    {
+      "name":"Lab: API",
+      "directory": "src/api",
+      "env": {
+        "ISSUER_BASE_URL": "$tenant_base_url",
+        "ALLOWED_AUDIENCES": "$identifier",
+        "PORT": 5000
+      }
+    }
+  ]
 }
