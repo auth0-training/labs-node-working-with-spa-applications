@@ -1,0 +1,151 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Working with Single Page Applications (SPA)",
+  "steps": [
+    {
+      "title": "What you'll do",
+      "description": "## What you'll do:\nIn this lab, you will learn how to add sign-on capabilities to a Single-Page Application (SPA). You will integrate the SPA with Auth0 so that your users are able to use the Auth0 Universal Login Page to authenticate.\n\nThe SPA in question is a vanilla JavaScript application that consumes the Expenses API endpoint.\n\nIn this exercise, you will focus on integrating the SPA with Auth0 and getting the profile of the logged-in user. "
+    },
+    {
+      "title": "An important note!",
+      "description": "## An important note!\n\nIf you have not completed previous labs that walk you through setting up the Expenses API in the Auth0 Dashboard, you'll need to follow the instructions below before proceeding. The Expenses API Application is included in this lab code and is configured to use Auth0 as detailed below.\n\nIf you have already configured the Expenses API in the Auth0 Dashboard, you may proceed to the next step.\n\n## Configure the Expenses API in Auth0\n\n1.  In the Auth0 Dashboard, go to the [APIs page](https://manage.auth0.com/#/applications), and click the **Create API** button.  \n      \n    \n1.  Name it ‘expenses-api’.  (without the '')\n      \n1.  For the **Identifier** field, copy and paste https://expenses-api and click **Create**.  \n      \n1.  Click the **Permissions** tab and add a new permission called `read:reports` with a suitable description. This custom permission is the one you will use to determine whether the client is authorized to retrieve expenses.\n\nExcellent. Your API is registered with Auth0."
+    },
+    {
+      "title": "Configure the SPA in Auth0",
+      "description": "## 3. Configure the Application in Auth0\nTo register this Single Page Application with Auth0:\n\n1.  Log in to the Auth0 Dashboard, go to the [Applications page](https://manage.auth0.com/#/applications), and click the **Create Application** button.  \n      \n1.  Set a descriptive name (e.g., \"single-page-application\"), choose **Single Page Web Application** for the type, and click **Create.**\n      \nYou should now see the Quickstart section that describes how to integrate Auth0 with a production application.  \n      \n1.  Click the **Settings** tab at the top.  \n      \nThis is where you'll come to retrieve settings.  \n      \nNow you'll launch the SPA and take a look."
+    },
+    {
+      "title": "Configure the SPA with Auth0 Tenant parameters",
+      "description": "*** Grab these via CLI then walk learner through insertion?"
+    },
+    {
+      "title": "Launch the SPA!",
+      "description": "## Launch the SPA!\n1.  (Insert instructions to launch via CLI and or Debug pane)\n\n  Note that this deployment may take longer to complete than those of previous labs. When the deployment completes, your terminal will provide a link to the running SPA.\n \n2.  Visit the SPA in your browser. If you do not see the App Summary section, make sure your API is properly running.  \n\n  ![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-1.png)  \n  \n  This is the homepage of your SPA. Right now, this SPA has no integration with Auth0. Also, the app is only consuming the public endpoint provided by the API. This endpoint returns two pieces of information: the total number of expenses recorded in the database (two, in this case) and the sum of their amount ($144.00). The SPA is using this information to feed the summary section of the page you are seeing.\n\n3.  Copy the application’s URL; we will need it in the next section."
+    },
+    {
+      "file": "src/spa-app/index.html",
+      "description": "## Implement Web Sign-In <index.html>\nNow that you have registered your SPA with Auth0, you can update your code to integrate both.\n\nThe [auth0-spa-js](https://github.com/auth0/auth0-spa-js) SDK is a simple, lightweight, and opinionated client developed by Auth0 that executes the OAuth 2.0 Authorization Code Grant Flow with PKCE. This client allows developers to quickly and securely implement authentication in their browser-based applications.  \n\nLet's implement it!\n\nHere' in the SPA's index.html file, we'll add the following code to include the auth0-spa-sdk:\n\n``` html\n<script src=\"https://cdn.auth0.com/js/auth0-spa-js/1.13.5/auth0-spa-js.production.js\"></script>\n```\n, then proceed to the next step.",
+      "line": 26,
+      "selection": {
+        "start": {
+          "line": 26,
+          "character": 5
+        },
+        "end": {
+          "line": 26,
+          "character": 61
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/app.js",
+      "description": "## Implement Web Sign-In <app.js>\nThis app.js file contains the code that starts the SPA in the browser. In it you will see an import statement followed by an [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) (Immediately Invoked Function Expression) containing the logic to handle window lifecycle events.  \n\nIt registers two event listeners to handle the hash change and load events passing them both to a router function.  \n\nFinally, the application uses session storage to detect when the user clicks the refresh button in their browser.  \n\nThis code is executed once when the page is loaded. We will create the Auth0 client here and make it available to the rest of the application by attaching it to the window instance.  \n\nInsert the following code:\n\n``` jsx\nconst domain = window.env.AUTH0_DOMAIN;\nconst client_id = window.env.CLIENT_ID;\nconst redirect_uri = window.env.APP_URL;\n\nwindow.auth0Client = await createAuth0Client({\n    domain,\n    client_id,\n    redirect_uri,\n});\n```\n\n\nThis code pulls the Auth0 domain, client id, and the application URL from environment variables. The third is constructed in the services/environment.js file.  \n\nThe redirect\\_uri property defines the URL that Auth0 must call after the authentication phase is concluded. This is the same URL listed in the **Allowed Callback URLs** field in the Auth0 Dashboard. If you use another URL without whitelisting it first, Auth0 will show an error page when you attempt to login.  ",
+      "line": 4,
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 3
+        },
+        "end": {
+          "line": 4,
+          "character": 45
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/router.js",
+      "description": "## Implement Web Sign-In <router.js> (1/2)\nThis file contains the code that is responsible for navigating between the various views of the SPA application. At the top of it, you will see import statements for three views Home, Expenses, and Error404. The import for the Navbar component is special in that it is shared among the three views.  \n\nNext is a simple map between client-side routes and the views they correspond to. Followed by two constants that reference the DOM elements that the navbar and content should be rendered.  \n\nFinally, a router function is defined to render the views based on the hash value of the browser window.  \n\nNext, we'll implement the authentication callback as the first step of the router logic.  \n\nClick Insert Code to add the callback handler below:\n\n``` jsx\nif (new URLSearchParams(window.location.search).has(\"code\")) {\n    await window.auth0Client.handleRedirectCallback();\n    window.history.replaceState({}, document.title, \"/\");\n}\n```\n\n\nThis logic checks the querystring of the current URL for an authorization code. This code can be used to identify if the request in question refers to a user coming back from the authentication process ( i.e. if this is a user being redirected back to the application by Auth0 after authenticating). If present, it calls the handleRedirectCallback function of the Auth0 client. Upon success, the URL is updated to remove the authorization code and the function continues processing.  \n\nIn the event that the user is authenticated, we want to get the user’s profile so that it can be rendered instead of the default anonymous profile.  \n\nProceed when you're ready! ",
+      "line": 15,
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 3
+        },
+        "end": {
+          "line": 15,
+          "character": 46
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/router.js",
+      "description": "## Implement Web Sign-In <router.js> (2/2)\nNext, we'll add code that uses the Auth0 client to check the authentication status of the current session, fetch the user's profile, and attach it to the window instances.\n\n``` jsx\nif (await window.auth0Client.isAuthenticated())\n    window.user = await window.auth0Client.getUser();\n```\n\nThis block and the previous block, together, should look something like this:\n\n![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-16.png)  \n\nProceed when you're ready!",
+      "line": 17,
+      "selection": {
+        "start": {
+          "line": 17,
+          "character": 3
+        },
+        "end": {
+          "line": 17,
+          "character": 50
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/views/components/Navbar.js",
+      "description": "## Adjust the View to Reflect Authenticated Status (js) <Navbar.js>\nHere at root > views > Navbar.js for the Web Application, we find all of the logic for the top navigation bar of the application. It imports two images to be used in the markup, defines the default anonymous user on the window instance, and creates a Navbar component.  \n\nThe Navbar component consists of two functions: `render` and `postRender`. The render function creates a [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) for the HTML markup of the navigation bar. The `postRender` function provides an opportunity to attach event listeners to the rendered DOM objects.  \n\nThe first line of the render function defines a constant isAuthentcated with a value of false. \n\nHere, we'll replace it with a call to the Auth0 client. \n\n``` jsx\nconst isAuthenticated = await window.auth0Client.isAuthenticated();\n```\n\nThis constant is used in the view markup to decide if the Login or Logout links should be displayed. This usage is located near the bottom of the view template.  \n\nThe `postRender` function attaches click event listeners to both the Logout and Login links after they have been rendered to the page. Update them so that they call the appropriate function provided by the Auth0 client.  ",
+      "line": 12,
+      "selection": {
+        "start": {
+          "line": 12,
+          "character": 5
+        },
+        "end": {
+          "line": 12,
+          "character": 81
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/views/components/Navbar.js",
+      "description": "## Adjust the 'postRender' login call\nThe `postRender` function attaches click event listeners to both the Logout and Login links after they have been rendered to the page. Update them so that they call the appropriate function provided by the Auth0 client.  \n\nInsert the following code:\n\n``` jsx\nawait window.auth0Client.loginWithRedirect();\n```\n\nWhen clicked the Login link will invoke the `loginWithRedirect()` function provided by the SPA SDK to start the authentication process. When users click the login button, they will be redirected to the authorization server.  \n\nProceed when ready!",
+      "line": 42,
+      "selection": {
+        "start": {
+          "line": 42,
+          "character": 7
+        },
+        "end": {
+          "line": 42,
+          "character": 44
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/views/components/Navbar.js",
+      "description": "## Adjust the 'postRender' logout call\nTo define what happens when users click the logout button, we'll insert the following code here: \n\n``` jsx\nwindow.auth0Client.logout({\n    returnTo: window.env.APP_URL,\n});\n```\n\nIn this case, we are making the Logout invoke the `logout()` function provided by the SPA SDK to end the user's Auth0 session. The returnTo property passed to this method works similar to the redirect\\_uri. This logout return URL was whitelisted in your Auth0 Application using the **Allowed Logout URLs** field.  ",
+      "line": 47,
+      "selection": {
+        "start": {
+          "line": 47,
+          "character": 7
+        },
+        "end": {
+          "line": 47,
+          "character": 45
+        }
+      }
+    },
+    {
+      "file": "src/spa-app/views/pages/Expenses.js",
+      "description": "## Update the allowAccess function\nHere, at root > views > pages > Expenses.js, we'll update the allowAccess function. This code contains all the logic for the Expenses view. It is set up similar to the Navbar component with render and postRender functions. The Expenses component has an additional property named allowAccess. The goal of the allowAccess function is to allow or deny access when it is invoked by the router.  \n\nInsert the following code:\n\n``` jsx\nallowAccess: async () => window.auth0Client.isAuthenticated(),\n```\n\nThe previous version of this function was hardcoded to always deny access and redirect to the #home route because no authentication mechanism was in place yet.  \n\nYou are now making use of the `isAuthenticated()` method provided by the SPA SDK to block unauthenticated users from accessing the expenses view. If an anonymous user tries to access it, the app will detect that they are not authenticated and will redirect them back to the homepage.\n\nProceed when ready!",
+      "line": 5,
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 3
+        },
+        "end": {
+          "line": 5,
+          "character": 80
+        }
+      }
+    },
+    {
+      "title": "Check it out!",
+      "description": "## Check it out! \n\n1. Visit the app in your browser and you will notice that it now allows you to see the home page as an anonymous user.  \n\n    ![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-1.png)  \n\n1. Click the **Expenses** link. Notice that the page appears to refresh, but you have been redirected back to the homepage.  \n\n1. Click the **Login** link to start the authentication process. Log in with your database user and accept the consent request.  \n\n    After successful authentication, Auth0 will redirect you back to your app. The homepage now addresses you by name and your profile image will be shown near the upper-right corner:  \n\n    ![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-2.png)  \n\n    Congrats! You have successfully authenticated to the single page application! There are some caveats you need to be aware of at this point.\n\n**Some caveats**  \n\n1. If you log in using a social identity provider (Google, Facebook, etc.), you will experience odd behavior like broken images when you refresh the SPA. This happens because you are using Auth0’s test development keys for the identity provider.  \n\n    To prevent this from happening, you would need to register your application with the relevant Identity Provider and replace the test development keys on the Auth0 dashboard with your own.  \n\n    However, for the purposes of this lab, you should log in with a username and password to avoid the aforementioned behavior.  \n\n    For more information, see [Test Social Connections with Auth0 Developer Keys](https://auth0.com/docs/connections/social/devkeys).  \n\n1. By default, the Auth0 SPA SDK holds authentication information in memory. Refreshing the browser causes the browser to start a new session clearing all the information stored in memory.  \n\n    The Auth0 SPA SDK will attempt to [silently authorize](https://auth0.com/docs/authorization/configure-silent-authentication#initiate-silent-authentication-requests) the user when the client is created. This functionality relies on the use of cookies created by the authorization server to determine if the user is currently authenticated.  \n    In the context of the SPA application, these cookies are considered third-party to the site hosted in Vercel. Some browsers like Safari and Brave have strict rules concerning the use of third-party cookies.  \n\n    The net result is that when you refresh the browser depending on which browser you are using that silent authentication may fail and the user will appear to no longer be authenticated and will have to authenticate again.  \n    \n    As an example, here is what the silent authentication call looks like in Chrome Developer Tools. Notice the cookies named **did** and **Auth0** included in the request to the authorize endpoint.  \n\n    ![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-27.png)  \n\n    Here is the same request using Safari. The cookies are not sent!  \n\n    ![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-21.png)  \n\n    If you need to support users using restrictive browsers, Auth0 recommends using [Refresh Token Rotation](https://auth0.com/docs/tokens/refresh-tokens/refresh-token-rotation), which provides a secure method for using refresh tokens in SPAs while providing end-users with seamless access to resources without the disruption in UX caused by browser privacy technology like ITP."
+    }
+  ],
+  "ref": "core-codetour-steps"
+}
