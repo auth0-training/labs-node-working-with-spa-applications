@@ -13,7 +13,10 @@
       ],
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "api:start"],
-      "port": 9005
+      "port": 9005,
+      "presentation": {
+        "hidden":true
+      }
     },
     {
       "type": "node",
@@ -24,7 +27,10 @@
       ],
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "spa:start"],
-      "port": 9008
+      "port": 9008,
+      "presentation": {
+        "hidden":true
+      }
     }
   ],
   "compounds": [
