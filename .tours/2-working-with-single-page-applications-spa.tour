@@ -1,24 +1,22 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "Working with Single Page Applications (SPA)",
+  "title": "2: Working with Single Page Applications (SPA)",
   "steps": [
     {
+      "file": "src/spa-app/index.html",
+      "line": 1,
       "title": "What you'll do",
       "description": "## What you'll do:\nIn this lab, you will learn how to add sign-on capabilities to a Single-Page Application (SPA). You will integrate the SPA with Auth0 so that your users are able to use the Auth0 Universal Login Page to authenticate.\n\nThe SPA in question is a vanilla JavaScript application that consumes the Expenses API endpoint.\n\nIn this exercise, you will focus on integrating the SPA with Auth0 and getting the profile of the logged-in user. "
     },
     {
-      "title": "An important note!",
-      "description": "## An important note!\n\nIf you have not completed previous labs that walk you through setting up the Expenses API in the Auth0 Dashboard, you'll need to follow the instructions below before proceeding. The Expenses API Application is included in this lab code and is configured to use Auth0 as detailed below.\n\nIf you have already configured the Expenses API in the Auth0 Dashboard, you may proceed to the next step.\n\n## Configure the Expenses API in Auth0\n\n1.  In the Auth0 Dashboard, go to the [APIs page](https://manage.auth0.com/#/applications), and click the **Create API** button.  \n      \n    \n1.  Name it ‘expenses-api’.  (without the '')\n      \n1.  For the **Identifier** field, copy and paste https://expenses-api and click **Create**.  \n      \n1.  Click the **Permissions** tab and add a new permission called `read:reports` with a suitable description. This custom permission is the one you will use to determine whether the client is authorized to retrieve expenses.\n\nExcellent. Your API is registered with Auth0."
+      "file": "src/spa-app/index.html",
+      "line": 1,
+      "title": "Examine the Client ID and Client Secret in the Auth0 Extension",
+      "description": "## Examine the Client ID and Client Secret in the Auth0 Extension\nWith the SPA registered in the Auth0 Dashboard, it has been issued a ClientID and Client Secret. These values must be configured in our application code. \n\nYou can view them from within the Auth0 Extension.\n\n1. Click [here](command:appsView.focus) to view the SPA App details from the Auth0 Extension. You should see the \"Lab: SPA\" that you just registered in the Auth0 dashboard listed under the **APPLICATIONS** menu. \n1. Expand the \"Lab: SPA\" application, and you should see the **Client ID** and **Client Secret**.\n1. Slightly lower, under the **APIS** menu, you should also see a **\"Lab: API\"**. This is the Auth0 configuration for the API that our SPA will consume.\n1. Return to the file explorer (click [here](command:workbench.files.action.focusOpenEditorsView)).\n"
     },
     {
-      "title": "Configure the SPA in Auth0",
-      "description": "## 3. Configure the Application in Auth0\nTo register this Single Page Application with Auth0:\n\n1.  Log in to the Auth0 Dashboard, go to the [Applications page](https://manage.auth0.com/#/applications), and click the **Create Application** button.  \n      \n1.  Set a descriptive name (e.g., \"single-page-application\"), choose **Single Page Web Application** for the type, and click **Create.**\n      \nYou should now see the Quickstart section that describes how to integrate Auth0 with a production application.  \n      \n1.  Click the **Settings** tab at the top.  \n      \nThis is where you'll come to retrieve settings.  \n      \nNow you'll launch the SPA and take a look."
-    },
-    {
-      "title": "Configure the SPA with Auth0 Tenant parameters",
-      "description": "*** Grab these via CLI then walk learner through insertion?"
-    },
-    {
+      "file": "src/spa-app/index.html",
+      "line": 1,
       "title": "Launch the SPA!",
       "description": "## Launch the SPA!\n1.  (Insert instructions to launch via CLI and or Debug pane)\n\n  Note that this deployment may take longer to complete than those of previous labs. When the deployment completes, your terminal will provide a link to the running SPA.\n \n2.  Visit the SPA in your browser. If you do not see the App Summary section, make sure your API is properly running.  \n\n  ![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-1.png)  \n  \n  This is the homepage of your SPA. Right now, this SPA has no integration with Auth0. Also, the app is only consuming the public endpoint provided by the API. This endpoint returns two pieces of information: the total number of expenses recorded in the database (two, in this case) and the sum of their amount ($144.00). The SPA is using this information to feed the summary section of the page you are seeing.\n\n3.  Copy the application’s URL; we will need it in the next section."
     },
@@ -40,7 +38,7 @@
     {
       "file": "src/spa-app/app.js",
       "description": "## Implement Web Sign-In <app.js>\nThis app.js file contains the code that starts the SPA in the browser. In it you will see an import statement followed by an [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) (Immediately Invoked Function Expression) containing the logic to handle window lifecycle events.  \n\nIt registers two event listeners to handle the hash change and load events passing them both to a router function.  \n\nFinally, the application uses session storage to detect when the user clicks the refresh button in their browser.  \n\nThis code is executed once when the page is loaded. We will create the Auth0 client here and make it available to the rest of the application by attaching it to the window instance.  \n\nInsert the following code:\n\n``` jsx\nconst domain = window.env.AUTH0_DOMAIN;\nconst client_id = window.env.CLIENT_ID;\nconst redirect_uri = window.env.APP_URL;\n\nwindow.auth0Client = await createAuth0Client({\n    domain,\n    client_id,\n    redirect_uri,\n});\n```\n\n\nThis code pulls the Auth0 domain, client id, and the application URL from environment variables. The third is constructed in the services/environment.js file.  \n\nThe redirect\\_uri property defines the URL that Auth0 must call after the authentication phase is concluded. This is the same URL listed in the **Allowed Callback URLs** field in the Auth0 Dashboard. If you use another URL without whitelisting it first, Auth0 will show an error page when you attempt to login.  ",
-      "line": 4,
+      "line": 12,
       "selection": {
         "start": {
           "line": 4,
@@ -55,7 +53,7 @@
     {
       "file": "src/spa-app/router.js",
       "description": "## Implement Web Sign-In <router.js> (1/2)\nThis file contains the code that is responsible for navigating between the various views of the SPA application. At the top of it, you will see import statements for three views Home, Expenses, and Error404. The import for the Navbar component is special in that it is shared among the three views.  \n\nNext is a simple map between client-side routes and the views they correspond to. Followed by two constants that reference the DOM elements that the navbar and content should be rendered.  \n\nFinally, a router function is defined to render the views based on the hash value of the browser window.  \n\nNext, we'll implement the authentication callback as the first step of the router logic.  \n\nClick Insert Code to add the callback handler below:\n\n``` jsx\nif (new URLSearchParams(window.location.search).has(\"code\")) {\n    await window.auth0Client.handleRedirectCallback();\n    window.history.replaceState({}, document.title, \"/\");\n}\n```\n\n\nThis logic checks the querystring of the current URL for an authorization code. This code can be used to identify if the request in question refers to a user coming back from the authentication process ( i.e. if this is a user being redirected back to the application by Auth0 after authenticating). If present, it calls the handleRedirectCallback function of the Auth0 client. Upon success, the URL is updated to remove the authorization code and the function continues processing.  \n\nIn the event that the user is authenticated, we want to get the user’s profile so that it can be rendered instead of the default anonymous profile.  \n\nProceed when you're ready! ",
-      "line": 15,
+      "line": 18,
       "selection": {
         "start": {
           "line": 15,
@@ -70,7 +68,7 @@
     {
       "file": "src/spa-app/router.js",
       "description": "## Implement Web Sign-In <router.js> (2/2)\nNext, we'll add code that uses the Auth0 client to check the authentication status of the current session, fetch the user's profile, and attach it to the window instances.\n\n``` jsx\nif (await window.auth0Client.isAuthenticated())\n    window.user = await window.auth0Client.getUser();\n```\n\nThis block and the previous block, together, should look something like this:\n\n![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-16.png)  \n\nProceed when you're ready!",
-      "line": 17,
+      "line": 18,
       "selection": {
         "start": {
           "line": 17,

@@ -1,7 +1,3 @@
-const express = require("express");
-const cors = require("cors");
-const { createServer } = require("http");
-const { auth, requiredScopes } = require("express-oauth2-bearer");
 const {
   checkUrl,
   APP_URL, // Public URL for this app
@@ -9,6 +5,10 @@ const {
   ALLOWED_AUDIENCES, // Auth0 API Audience List
   PORT,
 } = require("./env-config");
+const express = require("express");
+const cors = require("cors");
+const { createServer } = require("http");
+const { auth, requiredScopes } = require("express-oauth2-bearer");
 
 const app = express();
 
