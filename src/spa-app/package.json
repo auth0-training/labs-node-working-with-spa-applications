@@ -5,12 +5,12 @@
   "license": "MIT",
   "author": "Auth0",
   "bugs": {
-    "url": "https://github.com/auth0/auth0-product-education-labs/issues"
+    "url": "https://github.com/auth0-training/labs-node-working-with-spa-applications/issues"
   },
-  "homepage": "https://github.com/auth0/auth0-product-education-labs#readme",
+  "homepage": "https://github.com/auth0-training/labs-node-working-with-spa-applications#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/auth0/auth0-product-education-labs.git"
+    "url": "git+https://github.com/auth0-training/labs-node-working-with-spa-applications.git"
   },
   "scripts": {
     "dev": "node_modules/.bin/parcel index.html -p $npm_package_config_spa_app_port",
@@ -22,7 +22,6 @@
   },
   "keywords": [
     "auth0",
-    "vercel",
     "openid",
     "oidc",
     "auth",
@@ -32,9 +31,7 @@
     "labs"
   ],
   "devDependencies": {
-    "parcel-bundler": "^1.3.1",
-    "envvar-allowlist": "auth0/parcel-plugin-envvar-allowlist",
-    "dotenv": "10.0.0"
+    "parcel-bundler": "^1.12.5"
   },
   "browserslist": [
     "last 1 Chrome version"
