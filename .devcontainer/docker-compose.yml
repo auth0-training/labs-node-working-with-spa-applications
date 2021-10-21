@@ -1,13 +1,19 @@
-version: '3'
+version: '3.8'
 services:
   lab:
-    mem_limit: 2g
-    mem_reservation: 2g
     build:
       context: .
       dockerfile: Dockerfile
       args:
         VARIANT: 16-buster
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '2g'
+        reservations:
+          cpus: '1'
+          memory: '2g'
     volumes:
       # This is where VS Code should expect to find your project's source code and the value of "workspaceFolder" in .devcontainer/devcontainer.json
       - ..:/workspace:cached
