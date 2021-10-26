@@ -13,7 +13,6 @@
     "vsls-contrib.codetour",
     "mikestead.dotenv",
     "auth0.vscode-labs",
-    "hjb2012.vscode-es6-string-html",
     "humao.rest-client",
   ],
   "forwardPorts": [
