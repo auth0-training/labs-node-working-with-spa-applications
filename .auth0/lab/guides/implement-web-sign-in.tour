@@ -49,7 +49,7 @@
     },
     {
       "file": "src/spa-app/router.js",
-      "description": "## Implement Web Sign-In <router.js> (2/2)\nNext, we'll add code that uses the Auth0 client to check the authentication status of the current session, fetch the user's profile, and attach it to the window instances.\n\n``` jsx\nif (await window.auth0Client.isAuthenticated()) {\n    window.user = await window.auth0Client.getUser();\n}\n```\n\nThis block and the previous block, together, should look something like this:\n\n![](https://cdn.auth0.com/website/training/example/IDFUN-M04-L01-Ex01/img-16.png)  \n\nProceed when you're ready!",
+      "description": "## Implement Web Sign-In <router.js> (2/2)\nNext, we'll add code that uses the Auth0 client to check the authentication status of the current session, fetch the user's profile, and attach it to the window instances.\n\n``` jsx\nif (await window.auth0Client.isAuthenticated()) {\n    window.user = await window.auth0Client.getUser();\n}\n```\n\nProceed when you're ready!",
       "line": 23,
       "selection": {
         "start": {
