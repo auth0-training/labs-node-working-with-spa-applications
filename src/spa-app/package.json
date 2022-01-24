@@ -18,7 +18,7 @@
     "clean": "rm -rf .cache && rm -rf dist"
   },
   "config": {
-    "spa_app_port": 8000
+    "spa_app_port": 38500
   },
   "keywords": [
     "auth0",
