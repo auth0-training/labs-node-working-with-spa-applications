@@ -1,6 +1,6 @@
 {
   "name": "Lab Node Working with SPA Applications",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "resources": "resources.yml",
   "unauthenticatedTour": ".auth0/lab/guides/signin.tour",
   "postConfigureTour": ".auth0/lab/guides/create-the-single-page-application-in-your-auth0-labs-tenant.tour",
@@ -12,7 +12,7 @@
         "API_URL": "Lab: API",
         "AUTH0_DOMAIN": "$tenant_domain",
         "CLIENT_ID": "$client_id",
-        "PORT": 8000
+        "PORT": 38500
       }
     }
   ],
@@ -23,7 +23,7 @@
       "env": {
         "ISSUER_BASE_URL": "$tenant_base_url",
         "AUDIENCE": "$identifier",
-        "PORT": 5000
+        "PORT": 35500
       }
     }
   ]
