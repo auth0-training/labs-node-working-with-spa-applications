@@ -9,7 +9,7 @@ window.user = {
 
 const Navbar = {
   render: async () => {
-    
+    const isAuthenticated = false; // 👈 Replace this with isAuthenticated check
     const view = /*html*/ `
     <li class="logo">
       <a href="#">
@@ -39,12 +39,12 @@ const Navbar = {
   postRender: async () => {
     document.getElementById("log-in").addEventListener("click", async (e) => {
       e.preventDefault();
-
+      // 👉 Replace this with login call 👈
     });
 
     document.getElementById("log-out").addEventListener("click", (e) => {
       e.preventDefault();
-
+      // 👉 Replace this with login call 👈
     });
   },
 };

@@ -18,11 +18,12 @@ const router = async () => {
     window.history.replaceState({}, document.title, "/");
   }
 
- 
+  // 👉 Replace this with callback handler 👈
 
   const request = location.hash.slice(1).toLowerCase() || "/";
   const page = routes[request] || Error404;
 
+  // 👉 Replace this with user profile handler 👈
   if (await page.allowAccess()) {
     content.innerHTML = await page.render();
     await page.postRender();

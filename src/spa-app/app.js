@@ -1,7 +1,7 @@
 import router from "./router";
 
 (async function () {
-  
+  // 👉 Replace this with client creation 👈
   // handle user navigation
   window.addEventListener("hashchange", () => {
     router();

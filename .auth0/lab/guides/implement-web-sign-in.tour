@@ -50,14 +50,14 @@
     {
       "file": "src/spa-app/router.js",
       "description": "## Implement Web Sign-In <router.js> (2/2)\nNext, we'll add code that uses the Auth0 client to check the authentication status of the current session, fetch the user's profile, and attach it to the window instances.\n\n``` jsx\nif (await window.auth0Client.isAuthenticated()) {\n    window.user = await window.auth0Client.getUser();\n}\n```\n\nProceed when you're ready!",
-      "line": 25,
+      "line": 26,
       "selection": {
         "start": {
-          "line": 20,
+          "line": 26,
           "character": 3
         },
         "end": {
-          "line": 20,
+          "line": 26,
           "character": 50
         }
       }
@@ -103,7 +103,7 @@
         },
         "end": {
           "line": 47,
-          "character": 6
+          "character": 44
         }
       }
     },
