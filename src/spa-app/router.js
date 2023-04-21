@@ -12,12 +12,9 @@ const navbar = document.getElementById("navbar");
 const content = document.getElementById("content");
 
 const router = async () => {
-  console.log("in router");
   if (new URLSearchParams(window.location.search).has("code")) {
     sessionStorage.setItem("reload", "false");
-    console.log("handling redirect");
     await window.auth0Client.handleRedirectCallback();
-    console.log("replacing state");
     window.history.replaceState({}, document.title, "/");
   }
 

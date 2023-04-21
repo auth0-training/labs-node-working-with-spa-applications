@@ -1,7 +1,6 @@
 import router from "./router";
 
 (async function () {
-  console.log("config");
   const domain = window.env.AUTH0_DOMAIN;
   const clientId = window.env.CLIENT_ID;
   const redirect_uri = window.env.APP_URL;
@@ -15,11 +14,10 @@ import router from "./router";
   });
   // handle user navigation
   window.addEventListener("hashchange", () => {
-    console.log("haschange");
     router();
   });
   window.addEventListener("load", () => {
-    console.log("load");
+    // avoid calling router twice when handling redirect callback upon sign in
     if (!sessionStorage.getItem("reload")) {
       router();
     }
@@ -27,7 +25,6 @@ import router from "./router";
 
   //handle user reload of browser
   if (sessionStorage.getItem("reload")) {
-    console.log("reload");
     await router();
     sessionStorage.setItem("reload", "true");
   }
