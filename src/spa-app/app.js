@@ -13,12 +13,22 @@ import router from "./router";
       redirect_uri,
     },
   });
-
   // handle user navigation
-  window.addEventListener("hashchange", router);
-  window.addEventListener("load", router);
+  window.addEventListener("hashchange", () => {
+    console.log("haschange");
+    router();
+  });
+  window.addEventListener("load", () => {
+    console.log("load");
+    if (!sessionStorage.getItem("reload")) {
+      router();
+    }
+  });
 
   //handle user reload of browser
-  if (sessionStorage.getItem("reload")) await router();
-  sessionStorage.setItem("reload", "true");
+  if (sessionStorage.getItem("reload")) {
+    console.log("reload");
+    await router();
+    sessionStorage.setItem("reload", "true");
+  }
 })();
