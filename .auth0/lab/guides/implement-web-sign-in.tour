@@ -5,14 +5,14 @@
     {
       "file": "src/spa-app/index.html",
       "description": "## Implement Web Sign-In <index.html>\nNow that you have registered your SPA with Auth0, you can update your code to integrate both.\n\nThe [auth0-spa-js](https://github.com/auth0/auth0-spa-js) SDK is a simple, lightweight, and opinionated client developed by Auth0 that executes the OAuth 2.0 Authorization Code Grant Flow with PKCE. This client allows developers to quickly and securely implement authentication in their browser-based applications.  \n\nLet's implement it!\n\nHere' in the SPA's index.html file, we'll add the following code to include the auth0-spa-sdk:\n\n``` html\n<script src=\"https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js\"></script>\n```\n, then proceed to the next step.",
-      "line": 26,
+      "line": 30,
       "selection": {
         "start": {
-          "line": 26,
+          "line": 30,
           "character": 5
         },
         "end": {
-          "line": 26,
+          "line": 30,
           "character": 61
         }
       }
