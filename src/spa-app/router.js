@@ -12,12 +12,6 @@ const navbar = document.getElementById("navbar");
 const content = document.getElementById("content");
 
 const router = async () => {
-  if (new URLSearchParams(window.location.search).has("code")) {
-    sessionStorage.setItem("reload", "false");
-    await window.auth0Client.handleRedirectCallback();
-    window.history.replaceState({}, document.title, "/");
-  }
-
   // 👉 Replace this with callback handler 👈
 
   const request = location.hash.slice(1).toLowerCase() || "/";
