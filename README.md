@@ -18,19 +18,34 @@ In this lab, learners are walked through adding sign-on capabilities to a Single
 
 ## Labs in this Course
 
-- [Lab 1: Create a Tenant](https://github.com/auth0-training/labs-node-working-with-tenants)
-- [Lab 2: Create an Application](https://github.com/auth0-training/labs-node-create-an-application-ilt)
-- [Lab 3: Working with Connections](https://github.com/auth0-training/labs-node-working-with-connections-ilt)
-- [Lab 4: Working with the User Profile + Management API](https://github.com/auth0-training/labs-node-working-with-the-user-profile-ilt)
-- [Lab 5: Customize the Login Experience](https://github.com/auth0-training/labs-node-customize-the-login-experience-ilt)
-- [Lab 6: Create a Single Page Application](https://github.com/auth0-training/labs-node-working-with-spa-applications)
-- [Lab 7: Authorization Code and PKCE Network Trace](https://github.com/auth0-training/labs-node-oidc-auth-code-with-pkce-trace-ilt)
+- [Create a Tenant](https://github.com/auth0-training/labs-node-working-with-tenants)
+- [Create an Application](https://github.com/auth0-training/labs-node-create-an-application-ilt)
+- [Working with Connections](https://github.com/auth0-training/labs-node-working-with-connections-ilt)
+- [Working with the User Profile + Management API](https://github.com/auth0-training/labs-node-working-with-the-user-profile-ilt)
+- [Customize the Login Experience](https://github.com/auth0-training/labs-node-customize-the-login-experience-ilt)
+- [Create a Single Page Application](https://github.com/auth0-training/labs-node-working-with-spa-applications)
+- [Authorization Code Flow with PKCE](https://github.com/auth0-training/labs-node-oidc-auth-code-with-pkce-trace-ilt)
 
 ## Support and Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at the repository's issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
-## Author
+### What is Auth0?
+
+Auth0 helps you to:
+
+* Add authentication with [multiple authentication sources](https://auth0.com/docs/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+* Add authentication through more traditional [username/password databases](https://auth0.com/docs/connections/database/custom-db).
+* Add support for [linking different user accounts](https://auth0.com/docs/link-accounts) with the same user.
+* Support for generating signed [JSON Web Tokens](https://auth0.com/docs/jwt) to call your APIs and **flow the user identity** securely.
+* Analytics of how, when, and where users are logging in.
+* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://auth0.com/docs/rules/current).
+
+### Issue Reporting
+
+If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
+
+### Author
 
 [Auth0](https://auth0.com)
 
