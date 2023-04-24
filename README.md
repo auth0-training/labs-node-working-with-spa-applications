@@ -26,11 +26,7 @@ In this lab, learners are walked through adding sign-on capabilities to a Single
 - [Create a Single Page Application](https://github.com/auth0-training/labs-node-working-with-spa-applications)
 - [Authorization Code Flow with PKCE](https://github.com/auth0-training/labs-node-oidc-auth-code-with-pkce-trace-ilt)
 
-## Support and Issue Reporting
-
-If you have found a bug or if you have a feature request, please report them at the repository's issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
-
-### What is Auth0?
+## What is Auth0?
 
 Auth0 helps you to:
 
@@ -41,11 +37,11 @@ Auth0 helps you to:
 * Analytics of how, when, and where users are logging in.
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://auth0.com/docs/rules/current).
 
-### Issue Reporting
+## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
-### Author
+## Author
 
 [Auth0](https://auth0.com)
 
