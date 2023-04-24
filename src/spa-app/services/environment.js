@@ -6,6 +6,7 @@
 (function (window) {
   let API_URL = process.env.API_URL || "http://localhost:35500";
   let APP_URL = "http://localhost:38500";
+  const PORT = 38500;
   const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN;
   const CLIENT_ID = process.env.CLIENT_ID;
   const VERCEL_URL = process.env.VERCEL_URL;
@@ -18,6 +19,10 @@
     APP_URL = `https://${VERCEL_GITHUB_REPO}-git-${VERCEL_GIT_COMMIT_REF}-${VERCEL_GITHUB_ORG.toLowerCase()}.vercel.app`;
     // ensure expected hosted url
     if (!APP_URL.includes(window.location.host)) window.location = APP_URL;
+  }
+  // Use the Codespace App URL if we're in the Codespace environment
+  if (process.env.CODESPACE_NAME) {
+    APP_URL = `https://${process.env.CODESPACE_NAME}-${PORT}.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}`;
   }
 
   // make environment specific values available to app
