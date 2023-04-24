@@ -44,7 +44,7 @@ const Navbar = {
 
     document.getElementById("log-out").addEventListener("click", (e) => {
       e.preventDefault();
-      // 👉 Replace this with login call 👈
+      // 👉 Replace this with logout call 👈
     });
   },
 };
