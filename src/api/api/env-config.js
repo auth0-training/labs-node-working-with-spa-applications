@@ -22,6 +22,15 @@ function checkUrl() {
   };
 }
 
+function checkEnvironment(){
+  // Use the Codespace App URL if we're in the Codespace environment
+  if(process.env.CODESPACE_NAME){
+    return `https://${process.env.CODESPACE_NAME}-${PORT}.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}`
+  }
+  // otherwise use the localhost App URL
+  return appUrl;
+}
+
 function removeTrailingSlashFromUrl(url) {
   if (!url.endsWith("/")) return url;
 
@@ -37,7 +46,7 @@ console.log("----------------------------------\n");
 
 module.exports = {
   checkUrl,
-  APP_URL: appUrl,
+  APP_URL: checkEnvironment(),
   ISSUER_BASE_URL: removeTrailingSlashFromUrl(ISSUER_BASE_URL),
   AUDIENCE: AUDIENCE,
   PORT: PORT,
