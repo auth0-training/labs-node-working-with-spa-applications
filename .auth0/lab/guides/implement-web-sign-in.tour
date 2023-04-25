@@ -20,7 +20,7 @@
     {
       "file": "src/spa-app/app.js",
       "description": "## Implement Web Sign-In <app.js>\nThis **_app.js_** file contains the code that starts the SPA in the browser. In it you will see an import statement followed by an [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) (Immediately Invoked Function Expression) containing the logic to handle window lifecycle events.  \n\nIt registers two event listeners to handle the hash change and load events passing them both to a router function.  \n\nFinally, the application uses session storage to detect when the user clicks the refresh button in their browser.  \n\nThis code is executed once when the page is loaded. We will create the Auth0 client here and make it available to the rest of the application by attaching it to the window instance.  \n\nInsert the following code:\n\n``` jsx\nconst domain = window.env.AUTH0_DOMAIN;\nconst clientId = window.env.CLIENT_ID;\nconst redirect_uri = window.env.APP_URL;\n\nwindow.auth0Client = await auth0.createAuth0Client({\n  domain,\n  clientId,\n  authorizationParams: {\n    redirect_uri,\n  },\n});\n```\n\n\nThis code pulls the Auth0 domain, client id, and the application URL from environment variables. The Application URL is constructed in the services/environment.js file.  \n\nThe redirect\\_uri property defines the URL that Auth0 must call after the authentication phase is concluded. This is the same URL listed in the **Allowed Callback URLs** field in the Auth0 Dashboard. If you use another URL without whitelisting it first, Auth0 will show an error page when you attempt to login.  ",
-      "line": 14,
+      "line": 4,
       "selection": {
         "start": {
           "line": 4,
