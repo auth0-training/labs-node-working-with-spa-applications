@@ -16,7 +16,14 @@ const app = express();
 // Used to normalize URL
 app.use(checkUrl());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 const expenses = [
   {

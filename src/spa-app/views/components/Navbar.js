@@ -9,7 +9,7 @@ window.user = {
 
 const Navbar = {
   render: async () => {
-    const isAuthenticated = await window.auth0Client.isAuthenticated();
+    const isAuthenticated = false; // 👈 Replace this with isAuthenticated check
     const view = /*html*/ `
     <li class="logo">
       <a href="#">
@@ -39,16 +39,12 @@ const Navbar = {
   postRender: async () => {
     document.getElementById("log-in").addEventListener("click", async (e) => {
       e.preventDefault();
-      await window.auth0Client.loginWithRedirect();
+      // 👉 Replace this with login call 👈
     });
 
     document.getElementById("log-out").addEventListener("click", (e) => {
       e.preventDefault();
-      window.auth0Client.logout({
-        logoutParams: {
-          returnTo: window.env.APP_URL,
-        },
-      });
+      // 👉 Replace this with logout call 👈
     });
   },
 };

@@ -2,7 +2,7 @@ import expensesApi from "../../services/expensesApi.js";
 import Table from "../components/Table.js";
 
 const Expenses = {
-  allowAccess: async () => window.auth0Client.isAuthenticated(),
+  allowAccess: async () => false, // 👈 Replace this with isAuthenticated check
   render: async () => {
     const expenses = await expensesApi.getReports();
     const view = /*html*/ `
