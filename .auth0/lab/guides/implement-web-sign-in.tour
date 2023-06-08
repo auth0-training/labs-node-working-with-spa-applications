@@ -94,7 +94,7 @@
     },
     {
       "file": "src/spa-app/views/components/Navbar.js",
-      "description": "## Adjust the 'postRender' logout call\nTo define what happens when users click the logout button, we'll insert the following code here: \n\n``` jsx\n      window.auth0Client.logout({\n        logoutParams: {\n          returnTo: window.env.APP_URL,\n        },\n      });\n```\n\nIn this case, we are making the Logout invoke the `logout()` function provided by the SPA SDK to end the user's Auth0 session. The returnTo property passed to this method works similar to the redirect\\_uri. This logout return URL was whitelisted in your Auth0 Application using the **Allowed Logout URLs** field.  ",
+      "description": "## Adjust the 'postRender' logout call\nTo define what happens when users click the logout button, we'll insert the following code here: \n\n``` jsx\n      window.auth0Client.logout({\n        logoutParams: {\n          returnTo: window.env.APP_URL,\n        },\n      });\n```\n\nIn this case, we are making the Logout invoke the `logout()` function provided by the SPA SDK to end the user's Auth0 session. The returnTo property passed to this method works similar to the redirect\\_uri. This logout return URL was allow-listed in your Auth0 Application using the **Allowed Logout URLs** field.  ",
       "line": 47,
       "selection": {
         "start": {
