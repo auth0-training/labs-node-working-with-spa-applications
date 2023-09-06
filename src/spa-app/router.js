@@ -13,7 +13,7 @@ const content = document.getElementById("content");
 
 const router = async () => {
   // 👉 Replace this with callback handler 👈
-
+  
   // 👉 Replace this with user profile handler 👈
 
   const request = location.hash.slice(1).toLowerCase() || "/";
