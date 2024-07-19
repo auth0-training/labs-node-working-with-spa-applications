@@ -12,7 +12,7 @@
       "file": "",
       "line": 1,
       "title": "Configure this Lab",
-      "description": "## Configure this Lab\nNow we'll run a few commands to ensure that the lab is set up correctly. Once you've run these, you'll be ready to move forward.\n\n1. Click [here](command:auth0.lab.localConfigure) to leverage the Auth0 Labs extension for VSCode and the CLI to ensure your local environment is set up correctly. \n1. Click [here](command:workbench.action.files.saveAll) to save this progress."
+      "description": "## Configure this Lab\nNow we'll run a few commands to ensure that the lab is set up correctly. Once you've run these, you'll be ready to move forward.\n\n1. #### Click [here](command:auth0.lab.tenantConfigure) to ensure your lab tenant is properly configured. (Note: this will update the Callback URL for the *Lab: SPA App* application in your tenant).\n\n    Wait until you see the message that `resources.xml` has been successfully deploy before continuing to the next step.\n    \n    ![resources deployed message](https://cdn.auth0.com/website/a0fun/v2/resources.png)\n\n1. #### Click [here](command:auth0.lab.localConfigure) to set your local environment configurations (creates `.env` files in `/spa-app` and `/api`)\n1. Click [here](command:workbench.action.files.saveAll) to save this progress."
     }
   ],
   "nextTour": "2: Examine the Environment and Launch the SPA App"
