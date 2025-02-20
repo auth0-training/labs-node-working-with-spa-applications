@@ -1,6 +1,6 @@
 # Lab: Configure Single Page Applications with Auth0
 
-In this [Okta Training](https://www.okta.com/training/) lab, learners are walked through adding sign-on capabilities to a Single-Page Application, or SPA. By the end, the SPA will be integrated with Auth0 so that users can authenticate via the Universal Login Page.
+In this [Okta Learning](https://learning.okta.com/) lab, learners are walked through adding sign-on capabilities to a Single-Page Application, or SPA. By the end, the SPA will be integrated with Auth0 so that users can authenticate via the Universal Login Page.
 
 --- 
 
