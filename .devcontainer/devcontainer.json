@@ -14,12 +14,22 @@
     "vsls-contrib.codetour",
     "mikestead.dotenv",
     "auth0.vscode-labs",
-    "humao.rest-client",
+    "humao.rest-client"
   ],
   "forwardPorts": [
-    35500, //API
-    38500, //SPA App
+    35500,
+    38500
   ],
+  "portsAttributes": {
+    "35500": {
+      "label": "API",
+      "visibility": "public"
+    },
+    "38500": {
+      "label": "SPA App",
+      "visibility": "public"
+    }
+  },
   "shutdownAction": "stopCompose",
   "postStartCommand": "npm install -g npm@latest && npm run init",
   "waitFor": "postStartCommand",
