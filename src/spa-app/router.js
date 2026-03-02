@@ -12,9 +12,14 @@ const navbar = document.getElementById("navbar");
 const content = document.getElementById("content");
 
 const router = async () => {
-  // 👉 Replace this with callback handler 👈
-  
-  // 👉 Replace this with user profile handler 👈
+  if (new URLSearchParams(window.location.search).has("code")) {
+    await window.auth0Client.handleRedirectCallback();
+    window.history.replaceState({}, document.title, "/");
+  }
+
+  if (await window.auth0Client.isAuthenticated()) {
+    window.user = await window.auth0Client.getUser();
+  }
 
   const request = location.hash.slice(1).toLowerCase() || "/";
   const page = routes[request] || Error404;

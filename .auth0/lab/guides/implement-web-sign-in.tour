@@ -20,7 +20,7 @@
     {
       "file": "src/spa-app/app.js",
       "description": "## Implement Web Sign-In <app.js>\nThis **_app.js_** file contains the code that starts the SPA in the browser. In it you will see an import statement followed by an [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) (Immediately Invoked Function Expression) containing the logic to handle window lifecycle events.  \n\nIt registers two event listeners to handle the hash change and load events passing them both to a router function.  \n\nFinally, the application uses session storage to detect when the user clicks the refresh button in their browser.  \n\nThis code is executed once when the page is loaded. We will create the Auth0 client here and make it available to the rest of the application by attaching it to the window instance.  \n\nInsert the following code:\n\n``` jsx\nconst domain = window.env.AUTH0_DOMAIN;\nconst clientId = window.env.CLIENT_ID;\nconst redirect_uri = window.env.APP_URL;\n\nwindow.auth0Client = await auth0.createAuth0Client({\n  domain,\n  clientId,\n  authorizationParams: {\n    redirect_uri,\n  },\n});\n```\n\n\nThis code pulls the Auth0 domain, client id, and the application URL from environment variables. The Application URL is constructed in the services/environment.js file.  \n\nThe redirect\\_uri property defines the URL that Auth0 must call after the authentication phase is concluded. This is the same URL listed in the **Allowed Callback URLs** field in the Auth0 Dashboard. If you use another URL without whitelisting it first, Auth0 will show an error page when you attempt to login.  ",
-      "line": 4,
+      "line": 14,
       "selection": {
         "start": {
           "line": 4,
@@ -35,7 +35,7 @@
     {
       "file": "src/spa-app/router.js",
       "description": "## Implement Web Sign-In <router.js> (1/2)\nThis file contains the code that is responsible for navigating between the various views of the SPA application. At the top of it, you will see import statements for three views Home, Expenses, and Error404. The import for the Navbar component is special in that it is shared among the three views.  \n\nNext is a simple map between client-side routes and the views they correspond to. Followed by two constants that reference the DOM elements that the navbar and content should be rendered.  \n\nFinally, a router function is defined to render the views based on the hash value of the browser window.  \n\nNext, we'll implement the authentication callback as the first step of the router logic.  \n\nClick Insert Code to add the callback handler below:\n\n``` jsx\nif (new URLSearchParams(window.location.search).has(\"code\")) {\n    await window.auth0Client.handleRedirectCallback();\n    window.history.replaceState({}, document.title, \"/\");\n}\n```\n\n\nThis logic checks the querystring of the current URL for an authorization code. This code can be used to identify if the request in question refers to a user coming back from the authentication process ( i.e. if this is a user being redirected back to the application by Auth0 after authenticating). If present, it calls the handleRedirectCallback function of the Auth0 client. Upon success, the URL is updated to remove the authorization code and the function continues processing.  \n\nIn the event that the user is authenticated, we want to get the user’s profile so that it can be rendered instead of the default anonymous profile.  \n\nProceed when you're ready! ",
-      "line": 15,
+      "line": 18,
       "selection": {
         "start": {
           "line": 15,
@@ -50,7 +50,7 @@
     {
       "file": "src/spa-app/router.js",
       "description": "## Implement Web Sign-In <router.js> (2/2)\nNext, we'll add code that uses the Auth0 client to check the authentication status of the current session, fetch the user's profile, and attach it to the window instances.\n\n``` jsx\nif (await window.auth0Client.isAuthenticated()) {\n    window.user = await window.auth0Client.getUser();\n}\n```\n\nProceed when you're ready!",
-      "line": 20,
+      "line": 22,
       "selection": {
         "start": {
           "line": 20,
@@ -95,7 +95,7 @@
     {
       "file": "src/spa-app/views/components/Navbar.js",
       "description": "## Adjust the 'postRender' logout call\nTo define what happens when users click the logout button, we'll insert the following code here: \n\n``` jsx\n      window.auth0Client.logout({\n        logoutParams: {\n          returnTo: window.env.APP_URL,\n        },\n      });\n```\n\nIn this case, we are making the Logout invoke the `logout()` function provided by the SPA SDK to end the user's Auth0 session. The returnTo property passed to this method works similar to the redirect\\_uri. This logout return URL was allow-listed in your Auth0 Application using the **Allowed Logout URLs** field.  ",
-      "line": 47,
+      "line": 51,
       "selection": {
         "start": {
           "line": 47,
