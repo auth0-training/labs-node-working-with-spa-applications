@@ -13,7 +13,7 @@
     "url": "git+https://github.com/auth0-training/labs-node-working-with-spa-applications.git"
   },
   "scripts": {
-    "dev": "parcel index.html -p $npm_package_config_spa_app_port",
+    "dev": "parcel index.html -p $npm_package_config_spa_app_port --no-hmr",
     "build": "parcel build index.html -d public --public-url ./",
     "clean": "rm -rf .cache && rm -rf dist"
   },
