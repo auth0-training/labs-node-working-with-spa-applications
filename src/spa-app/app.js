@@ -1,8 +1,20 @@
 import router from "./router";
 
 (async function () {
-  // 👉 Replace this with client creation 👈
-  
+  const domain = window.env.AUTH0_DOMAIN;
+  const clientId = window.env.CLIENT_ID;
+  const redirect_uri = window.env.APP_URL;
+
+  window.auth0Client = await auth0.createAuth0Client({
+    domain,
+    clientId,
+    authorizationParams: {
+      redirect_uri,
+    },
+  });
+
+
+
   // handle user navigation
   window.addEventListener("hashchange", () => {
     router();
